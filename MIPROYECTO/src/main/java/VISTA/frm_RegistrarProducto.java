@@ -47,6 +47,7 @@ public class frm_RegistrarProducto extends javax.swing.JDialog {
         btn_cancelar = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
         btn_pdf = new javax.swing.JButton();
+        btn_mostrarGrafico = new javax.swing.JButton();
 
         btn_eliminar.setText("Eliminar");
         popup_menu.add(btn_eliminar);
@@ -156,7 +157,7 @@ public class frm_RegistrarProducto extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnguardar)
                     .addComponent(btn_actualizar))
-                .addGap(18, 18, 18)
+                .addGap(20, 20, 20)
                 .addComponent(btn_cancelar)
                 .addContainerGap(28, Short.MAX_VALUE))
         );
@@ -184,6 +185,13 @@ public class frm_RegistrarProducto extends javax.swing.JDialog {
             }
         });
 
+        btn_mostrarGrafico.setText("Mostrar Grafico");
+        btn_mostrarGrafico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_mostrarGraficoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -195,13 +203,15 @@ public class frm_RegistrarProducto extends javax.swing.JDialog {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(btn_agrupados)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(btn_mostrarGrafico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btn_agrupados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(35, 35, 35)
                                 .addComponent(btn_excel, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(35, 35, 35)
                                 .addComponent(btn_pdf, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
@@ -216,8 +226,10 @@ public class frm_RegistrarProducto extends javax.swing.JDialog {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btn_agrupados)
+                        .addGap(20, 20, 20)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btn_agrupados)
+                            .addComponent(btn_mostrarGrafico)
                             .addComponent(btn_excel)
                             .addComponent(btn_pdf))))
                 .addContainerGap(20, Short.MAX_VALUE))
@@ -279,6 +291,10 @@ public class frm_RegistrarProducto extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_pdfActionPerformed
 
+    private void btn_mostrarGraficoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_mostrarGraficoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_mostrarGraficoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -317,6 +333,7 @@ public class frm_RegistrarProducto extends javax.swing.JDialog {
     public javax.swing.JButton btn_cancelar;
     public javax.swing.JMenuItem btn_eliminar;
     public javax.swing.JButton btn_excel;
+    public javax.swing.JButton btn_mostrarGrafico;
     public javax.swing.JButton btn_pdf;
     public javax.swing.JButton btnguardar;
     private javax.swing.JLabel jLabel1;

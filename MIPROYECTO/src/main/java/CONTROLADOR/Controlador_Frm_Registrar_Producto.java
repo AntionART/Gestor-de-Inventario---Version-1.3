@@ -9,13 +9,13 @@ import VISTA.frm_ProductosAgrupados;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -23,6 +23,12 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDType0Font;
+
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
 
 public class Controlador_Frm_Registrar_Producto implements ActionListener, ListSelectionListener {
 
@@ -37,8 +43,9 @@ public class Controlador_Frm_Registrar_Producto implements ActionListener, ListS
         this.frm_rp.btn_cancelar.addActionListener(this);
         this.frm_rp.btn_eliminar.addActionListener(this);
         this.frm_rp.btn_agrupados.addActionListener(this);
-        this.frm_rp.btn_excel.addActionListener(this); // Añadir listener para el botón "Mostrar en Excel"
-        this.frm_rp.btn_pdf.addActionListener(this); // Añadir listener para el botón "Mostrar en PDF"
+        this.frm_rp.btn_excel.addActionListener(this);
+        this.frm_rp.btn_pdf.addActionListener(this);
+        this.frm_rp.btn_mostrarGrafico.addActionListener(this); // Añadir listener para el botón de gráfico
         this.projectPath = System.getProperty("user.dir");
     }
 
@@ -108,7 +115,40 @@ public class Controlador_Frm_Registrar_Producto implements ActionListener, ListS
             exportToExcel(frm_rp.TablaProductos, "productos.xlsx");
         } else if (e.getSource() == frm_rp.btn_pdf) {
             exportToPDF(frm_rp.TablaProductos, "productos.pdf");
+        } else if (e.getSource() == frm_rp.btn_mostrarGrafico) {
+            mostrarGrafico();
         }
+    }
+
+    private void mostrarGrafico() {
+        List<Producto> productos = obtenerListaDeProductos();
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+
+        for (Producto producto : productos) {
+            dataset.addValue(producto.getCantidad(), "Cantidad", producto.getNombre());
+            dataset.addValue(producto.getPrecio(), "Precio", producto.getNombre());
+            dataset.addValue(producto.getTotal(), "Total", producto.getNombre());
+        }
+
+        JFreeChart barChart = ChartFactory.createBarChart(
+                "Productos Inventario",
+                "Producto",
+                "Valor",
+                dataset,
+                PlotOrientation.VERTICAL,
+                true, true, false);
+
+        JFrame graficoFrame = new JFrame("Gráfico de Productos");
+        graficoFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        graficoFrame.add(new ChartPanel(barChart));
+        graficoFrame.pack();
+        graficoFrame.setLocationRelativeTo(null);
+        graficoFrame.setVisible(true);
+    }
+
+    private List<Producto> obtenerListaDeProductos() {
+        ListarProductos listarProductos = new ListarProductos();
+        return listarProductos.obtenerProductos(); // Implementa este método en ListarProductos
     }
 
     private void limpiarentradas() {

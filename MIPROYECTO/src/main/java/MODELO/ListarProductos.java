@@ -8,9 +8,12 @@ import java.sql.SQLException;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ListarProductos {
-    
+
+    // Método para mostrar la tabla completa de productos
     public void MostrarTable(JTable tabla) {
         // Se crea una instancia de la clase ConexionMysql
         ConexionMysql con = new ConexionMysql();
@@ -56,10 +59,11 @@ public class ListarProductos {
             tabla.setModel(modelo);
         } catch (Exception e) {
             // Se maneja cualquier excepción que pueda ocurrir durante la consulta
-            System.out.println("ERROR AL LISTAR LOS DATOS" + e);
+            System.out.println("ERROR AL LISTAR LOS DATOS: " + e);
         }
     }
     
+    // Método para mostrar la tabla de productos agrupados por nombre
     public void MostrarTableAgrupada(JTable tabla) {
         ConexionMysql con = new ConexionMysql();
         Connection cn = con.conectar();
@@ -90,5 +94,30 @@ public class ListarProductos {
         } catch (SQLException e) {
             System.out.println("ERROR AL AGRUPAR LOS DATOS: " + e);
         }
+    }
+
+    // Método para obtener la lista de productos
+    public List<Producto> obtenerProductos() {
+        List<Producto> productos = new ArrayList<>();
+        ConexionMysql con = new ConexionMysql();
+        Connection cn = con.conectar();
+
+        String sql = "SELECT nombre, cantidad, precio FROM producto";
+        
+        try (PreparedStatement stmt = cn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                String nombre = rs.getString("nombre");
+                int cantidad = rs.getInt("cantidad");
+                double precio = rs.getDouble("precio");
+                Producto producto = new Producto(nombre, cantidad, precio);
+                productos.add(producto);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return productos;
     }
 }
